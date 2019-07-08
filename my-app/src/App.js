@@ -8,8 +8,9 @@ import images from "./images.json";
 import "./App.css";
 
 //Fischer-Yates algorithm to randomly shuffle images
-function shuffleImages(friends) {
-  let currentIndex = friends.length;
+function shuffleImages(images) {
+  console.log(images);
+  let currentIndex = images.length;
   let tempValue, randomIndex;
 
   while (0 !== currentIndex) {
@@ -17,12 +18,12 @@ function shuffleImages(friends) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -=1;
     //Swaps random element with current element
-    tempValue = friends[currentIndex];
-    friends[currentIndex] = friends[randomIndex];
-    friends[randomIndex] = tempValue;
+    tempValue = images[currentIndex];
+    images[currentIndex] = images[randomIndex];
+    images[randomIndex] = tempValue;
   }
 
-  return friends;
+  return images;
 }
 
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
       clicked: true
     })
     shuffleImages();
+    console.log("this");
   }
 
   render() {
@@ -46,16 +48,16 @@ class App extends Component {
           <Navbar />
           <Jumbotron />
           <Counter />
-        <div className="images-section">
+        <div className="images-section" onClick={shuffleImages()}>
           {images.map(image => (
             <Image
               id={image.id}
               key={image.id}
-              image={image.link}
+              link={image.link}
             />
           ))}
         </div>
-        <footer>Memory Game with React!</footer>
+        <footer>Memory Game with React<i className="fab fa-react"></i></footer>
         </div>
     );
   }
