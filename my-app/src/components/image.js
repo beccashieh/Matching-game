@@ -2,9 +2,9 @@ import React from "react";
 
 function Image(props) {
     return (
-        <div className="card">
+        <div className="card" onClick={this.handleChange}>
           <div className="img-container">
-            <img src={props.image} alt={props.id} />
+            <img src={props.link} alt={props.id} />
             <div className="card-body"></div>
           </div>
         </div>
