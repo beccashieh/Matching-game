@@ -34,7 +34,7 @@ footer {
   margin: auto 40%;
 }
 
-.card {
+.img-card {
   background: #fff;
   border-radius: 2px;
   height: 200px;
@@ -45,13 +45,13 @@ footer {
   display: inline-block;
 }
 
-.card > .img-container {
+.img-card > .img-container {
   height: 100%;
   overflow: hidden;
   background:#6CADDC;
 }
 
-.card:hover {
+.img-card:hover {
   background-color: rgb(95, 93, 93, .5);
   padding: 10px;
   border-radius: 5px;
