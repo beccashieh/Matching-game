@@ -8,23 +8,23 @@ import images from "./images.json";
 import "./App.css";
 
 //Fischer-Yates algorithm to randomly shuffle images
-function shuffleImages(images) {
-  console.log(images);
-  let currentIndex = images.length;
-  let tempValue, randomIndex;
+// function shuffleImages(images) {
+//   // console.log(images);
+//   let currentIndex = images.length;
+//   let tempValue, randomIndex;
 
-  while (0 !== currentIndex) {
-    //Picks remaining element
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -=1;
-    //Swaps random element with current element
-    tempValue = images[currentIndex];
-    images[currentIndex] = images[randomIndex];
-    images[randomIndex] = tempValue;
-  }
+//   while (0 !== currentIndex) {
+//     //Picks remaining element
+//     randomIndex = Math.floor(Math.random() * currentIndex);
+//     currentIndex -=1;
+//     //Swaps random element with current element
+//     tempValue = images[currentIndex];
+//     images[currentIndex] = images[randomIndex];
+//     images[randomIndex] = tempValue;
+//   }
 
-  return images;
-}
+//   return images;
+// }
 
 class App extends Component {
   constructor(props) {
@@ -38,8 +38,8 @@ class App extends Component {
     this.setState({
       clicked: true
     })
-    shuffleImages();
-    console.log("this");
+    // shuffleImages();
+    // console.log("this");
   }
 
   render() {
@@ -48,8 +48,8 @@ class App extends Component {
           <Navbar />
           <Jumbotron />
           <Counter />
-        <div className="images-section" onClick={shuffleImages()}>
-          {images.map(image => (
+        <div className="images-section">
+          {this.state.images.map(image => (
             <Image
               id={image.id}
               key={image.id}
