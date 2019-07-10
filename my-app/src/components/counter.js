@@ -23,7 +23,7 @@ class Counter extends React.Component {
   //if clicked is false, runs countIncrease.
   //if clicked is true, runs topScore and resets the count.
   checkClick = () => {
-    if (!Image.clicked) {
+    if (Image.clicked) {
       this.countIncrease();
     } else {
       this.topScore();
@@ -41,6 +41,7 @@ class Counter extends React.Component {
           count={this.state.count}
           countIncrease={this.countIncrease}
           topScore={this.state.topScore}
+          handleChange={this.checkClick}
         />
       </div>
     );

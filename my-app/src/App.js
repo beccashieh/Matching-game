@@ -4,32 +4,15 @@ import Navbar from "./components/nav";
 import Jumbotron from "./components/jumbotron";
 import Counter from "./components/counter";
 import Image from "./components/image";
+// import Score from "./components/score";
 import images from "./images.json";
 import "./App.css";
-
-// Fischer-Yates algorithm to randomly shuffle images
-// function shuffleImages(images) {
-//   // console.log(images);
-//   let currentIndex = images.length;
-//   let tempValue, randomIndex;
-
-//   while (0 !== currentIndex) {
-//     //Picks remaining element
-//     randomIndex = Math.floor(Math.random() * currentIndex);
-//     currentIndex -=1;
-//     //Swaps random element with current element
-//     tempValue = images[currentIndex];
-//     images[currentIndex] = images[randomIndex];
-//     images[randomIndex] = tempValue;
-//   }
-//   console.log('images shuffled');
-//   return images;
-// }
 
 class App extends Component {
   //Sets this.state.images to the json array.
   state = {
-    images
+    images,
+    count: 0
   };
 
   componentDidMount() {
@@ -51,10 +34,45 @@ class App extends Component {
       currentIndex--;
     }
 
-    console.log("current index is " + images);
-    console.log("images now shuffled");
+    // console.log("current index is " + images);
+    // console.log("images now shuffled");
     return images;
   };
+  
+  //count increase function
+  //if user clicks different image, count increases
+  countIncrease = () => {
+    this.setState({ count: this.state.count + 1 });
+    console.log('count is: ', this.state.count);
+  };
+  //topScore function
+  //if user clicks same image, topScore reflects highest count and count returns to 0.
+  topScore = () => {
+    this.setState({
+      count: 0
+    })
+  };
+
+  //checks if the "clicked" property of the image is true. Should be changed once the user clicks on an image.
+  //if clicked is false, runs countIncrease.
+  //if clicked is true, runs topScore and resets the count.
+  clickedNew = (id, data) => {
+    console.log(`Data id: ${data.id}\n Data: ${id}`);
+    // this.countIncrease();
+
+    // console.log('clicked', this.state.count);
+    if (id !== data.id) {
+      this.countIncrease();
+      return this.state.count;
+    }
+  };
+
+  clickedAgain = (id, data) => {
+    if (id === data.id) {
+      console.log('You chose a card more than once.')
+      this.topScore();
+    }
+  }
 
   handleChange = event => {
     //Changes the clicked boolean to true.
@@ -62,21 +80,39 @@ class App extends Component {
       clicked: true
     });
     this.shuffleImages(images);
-    // console.log("this");
   };
 
   handleItemClick = id => {
+    console.log('id: ', id);
+    let correctGuess= false;
+    // console.log(newItem);
+    const clickedImages = this.state.images.map(item => {
+      const newItem = {...item};
+      // console.log(item);
+      if (newItem.id === id){
+        if (!newItem.clicked) {
+          newItem.clicked = true;
+          correctGuess = true;
+        }
+      }
+      return newItem;
+    });
+    correctGuess
+    ? this.clickedNew(id, clickedImages)
+    : this.clickedAgain(id, clickedImages);
+
     this.setState({
       images: this.shuffleImages(images)
-    })
-  }
+    });
+  };
+  
 
   render() {
     return (
       <div className="container">
         <Navbar />
         <Jumbotron />
-        <Counter />
+        <Counter/>
         <div className="images-section" id="imgSection">
           {this.state.images.map(image => (
             <Image
@@ -85,7 +121,7 @@ class App extends Component {
               key={image.id}
               link={image.link}
               handleClick={this.handleItemClick}
-              // onClick={ () => shuffleImages(images)}
+              // onClick={this.countIncrease}
             />
           ))}
         </div>
