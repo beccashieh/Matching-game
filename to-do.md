@@ -1,8 +1,8 @@
-[] Setup file folders
+[x] Setup file folders
 [x] Outline components needed
-[] Create components folders-- images, nav bar (logo, instructions, score)
-[] Decide on theme
-[] Pseudocode functions
+[x] Create components folders-- images, nav bar (logo, instructions, score)
+[x] Decide on theme
+[x] Pseudocode functions
 [] Game start function
 [] Render images to screen (function)
 [] Click event listeners for each image (function)
